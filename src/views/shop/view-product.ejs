@@ -1,0 +1,43 @@
+<%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/product.css" />
+  </head>
+
+  <body>
+    <%- include('../partials/nav.ejs') %>
+
+<div class="container m-5">
+  <div class="row">
+    <div class="col-6">
+      <img src="<%= productData.image %>" width="500px" height="400px"/>
+    </div>
+    <div class="col-6">
+      <h2><%= productData.title %></h2>
+      <h4>$ <%= productData.price %></h4>
+      <p><%= productData.description %></p>
+
+     
+
+      <form method="POST" action="/products/<%= productData.id %>">
+
+        <% if(isIncluded){ %>
+          <input type="hidden" name="productId" value="<%= productData.id %>" />
+          <% } %>
+          
+        <button class="btn"> <%= isIncluded ? 'Remove from Wishlist' :'Add to Wishlist' %> </button>
+      </form>
+      <div>
+        <form method="POST" action="/products/<%= productData.id %>">
+
+      <button class="btn">Add to Cart</button>
+      </form>
+      <button class="btn">Buy Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%- include('../partials/end.ejs') %>

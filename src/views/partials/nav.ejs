@@ -1,0 +1,24 @@
+<header class="main-header">
+  <nav class="main-header__nav d-flex justify-content-between px-5">
+    <ul class="main-header__item-list">
+      <li class="main-header__item">
+        <a href="/" class="<%= activeLink ==='/'? 'active' :'' %>">Shop</a>
+      </li>
+      <li class="main-header__item">
+        <a
+          href="/admin/edit-product"
+          class="<%= activeLink ==='admin/edit-product'? 'active' :'' %>"
+          >Add Product</a
+        >
+      </li>
+      <li class="main-header__item">
+        <a
+          href="/admin/products"
+          class="<%= activeLink ==='/admin/products'? 'active' :'' %>"
+          >Admin Product</a
+        >
+      </li>
+    </ul>
+    <a href="/cart" class="fa-solid fa-cart-shopping text-white fs-4"></a>
+  </nav>
+</header>
