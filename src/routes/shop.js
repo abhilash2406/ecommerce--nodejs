@@ -8,6 +8,8 @@ const wishlistController = require('../controllers/shop/wishlist');
 
 const cartController = require('../controllers/shop/cart');
 
+const viewPageController = require('../controllers/shop/viewpage');
+
 router.get('/', productsController.getAllProducts);
 
 router.get('/cart', cartController.getAllProducts);
@@ -20,7 +22,7 @@ router.post('/update-cart', cartController.updateCart);
 
 router.post('/remove-from-cart', cartController.removeFromCart);
 
-router.get('/products/:productID', wishlistController.getViewProductPage);
+router.get('/products/:productID', viewPageController.getViewProductPage);
 
 router.post('/add-to-wishlist', wishlistController.editwishList);
 

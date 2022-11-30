@@ -19,20 +19,16 @@
 
      
 
-      <form method="POST" action="/products/<%= productData.id %>">
-
-        <% if(isIncluded){ %>
-          <input type="hidden" name="productId" value="<%= productData.id %>" />
-          <% } %>
-          
-        <button class="btn"> <%= isIncluded ? 'Remove from Wishlist' :'Add to Wishlist' %> </button>
-      </form>
+       <form method="POST" action="<%= isInCart ? '/remove-from-cart' : '/add-to-cart' %>">
+              <input type="hidden" name="productID" value="<%= productData.id %>">
+              <button class="btn"> <%= isInCart ? 'Remove Cart' : 'Add to Cart ' %></button>
+             </form>
       <div>
-        <form method="POST" action="/products/<%= productData.id %>">
-
-      <button class="btn">Add to Cart</button>
-      </form>
-      <button class="btn">Buy Now</button>
+       <form method="POST" action="<%= isInWishList ? '/remove-from-wishlist' : '/add-to-wishlist' %>">
+              <input type="hidden" name="productID" value="<%= productData.id %>">
+              <button class="btn"> <%= isInWishList ? 'Remove from Wish List' : 'Add to WishList ' %></button>
+             </form>
+      
       <a  href="/"class="back-btn">Back</a>
       </div>
     </div>

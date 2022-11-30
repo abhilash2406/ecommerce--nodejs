@@ -7,6 +7,8 @@ const appRootDir = require('../utils/path');
 
 const cartFilePath = path.join(appRootDir, 'data', 'cart.json');
 
+// reading cart db
+
 const getAllCartPoducts = (cb) => {
   fs.readFile(cartFilePath, (err, fileContent) => {
     if (err) {
@@ -45,6 +47,7 @@ module.exports = class Cart {
       });
     });
   }
+  // remove from cart operation
 
   static _removeFromCart(productID, cb) {
     getAllCartPoducts((products) => {
@@ -58,6 +61,9 @@ module.exports = class Cart {
       });
     });
   }
+
+// add to cart
+
   static addToCart(prductDetails, cb) {
     getAllCartPoducts((products) => {
       // if product exist
@@ -88,6 +94,7 @@ module.exports = class Cart {
     });
   }
 
+  // fetch whole cart
 
   static fetchAll(cb) {
     getAllCartPoducts(cb);

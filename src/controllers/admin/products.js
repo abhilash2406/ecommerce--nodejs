@@ -1,8 +1,10 @@
 const Product = require('../../model/product');
+const Cart = require('../../model/cart');
 
 const { v1: uuidv1 } = require('uuid');
 
 exports.getEditProductPage = (req, res, next) => {
+  Cart.fetchAll((cartProducts) => {
   let isEditable = false;
   if (req.params.productID) {
     isEditable = true;
@@ -12,17 +14,23 @@ exports.getEditProductPage = (req, res, next) => {
       pageTitle: 'Add Product',
       activeLink: 'admin/edit-product',
       isEditable: false,
+      cartlength : cartProducts.length,
     });
   }
 
   Product.getProductDetailById(req.params.productID, (productData) => {
+    
     return res.render('admin/edit-product', {
       pageTitle: 'Edit Product',
       activeLink: 'admin/edit-product',
       productData,
+      cartlength : cartProducts.length,
       isEditable: true,
+
     });
   });
+});
+  
 };
 
 exports.editProduct = (req, res, next) => {
@@ -47,11 +55,14 @@ exports.editProduct = (req, res, next) => {
 };
 
 exports.getAllProducts = (req, res, next) => {
+  Cart.fetchAll((cartProducts) => {
   Product.fetchAll((pdt) => {
     res.render('admin/list', {
       pageTitle: 'Admin List',
+      cartlength : cartProducts.length,
       products: pdt,
       activeLink: '/admin/products',
     });
+  });
   });
 };

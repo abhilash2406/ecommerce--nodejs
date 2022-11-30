@@ -1,6 +1,8 @@
 const Cart = require('../../model/cart');
 const Product = require('../../model/product');
 
+//controller to display cart
+
 exports.getAllProducts = (req, res, next) => {
   Product.fetchAll((products) => {
     Cart.fetchAll((cartProducts) => {
@@ -12,7 +14,7 @@ exports.getAllProducts = (req, res, next) => {
         qty: cartProducts.find(({ id }) => id === p.id).qty,
       }));
 
-      const no = cartProducts.length;
+      
 
       let totalPrice = 0;
       cartProducts.map((cartProduct) => {
@@ -25,20 +27,24 @@ exports.getAllProducts = (req, res, next) => {
         products: formattedProducts,
         activeLink: '/cart',
         totalPrice,
-        no,
+        cartlength : cartProducts.length,
       });
     });
   });
 };
 
+//add product to cart
+
 exports.editCart = (req, res, next) => {
   const productID = req.body.productID;
   Product.getProductDetailById(productID, (productDetails) => {
     Cart.addToCart(productDetails, () => {
-      res.redirect(`/`);
+      res.redirect(`/products/${productID}`);
     });
   });
 };
+
+//update cart item quantity
 
 exports.updateCart = (req, res, next) => {
   const productID = req.body.productID;
@@ -48,10 +54,14 @@ exports.updateCart = (req, res, next) => {
   });
 };
 
+//remove item from cart
+
 exports.removeFromCart = (req, res, next) => {
   const productID = req.body.productID;
 
 
   Cart._removeFromCart(productID, () => {});
-  res.redirect(`/`);
+  res.redirect(`/products/${productID}`);
 };
+
+

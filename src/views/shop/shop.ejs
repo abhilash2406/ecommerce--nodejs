@@ -36,17 +36,11 @@
             </p>
           </div>
           <div class="card__actions">
-             <form method="POST" action="<%= product.isInCart ? '/remove-from-cart' : '/add-to-cart' %>">
-              <input type="hidden" name="productID" value="<%= product.id %>">
-              <button class="btn"> <%= product.isInCart ? 'Remove Cart' : 'Add to Cart ' %></button>
-             </form>
+            
             <form method="GET" action="/products/<%= product.id %>">
               <button class="btn"> View </button>
             </form>
-             <form method="POST" action="<%= product.isInWishList ? '/remove-from-wishlist' : '/add-to-wishlist' %>">
-              <input type="hidden" name="productID" value="<%= product.id %>">
-              <button class="btn"> <%= product.isInWishList ? 'Remove from Wish List' : 'Add to WishList ' %></button>
-             </form>
+            
           </div>
         </article>
       </div>

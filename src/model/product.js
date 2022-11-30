@@ -1,4 +1,4 @@
-// const products = [];
+
 
 const fs = require('fs');
 
@@ -9,6 +9,8 @@ const appRootDir = require('../utils/path');
 const pdtFilePath = path.join(appRootDir, 'data', 'db.json');
 
 const wishlistFilePath = path.join(appRootDir, 'data', 'wishlist.json');
+
+//reading product db
 
 const getALLProducts = (cb) => {
   fs.readFile(pdtFilePath, (err, fileContent) => {
@@ -27,6 +29,8 @@ module.exports = class Product {
     this.image = image;
     this.description = description;
   }
+
+  // add new item to product list/shop
  
   save(cb) {
     getALLProducts((products) => {
@@ -39,6 +43,8 @@ module.exports = class Product {
       });
     });
   }
+
+  // update product details
 
   update(cb) {
     getALLProducts((products) => {
@@ -57,12 +63,16 @@ module.exports = class Product {
     });
   }
 
+  // get single product details using item
+
   static getProductDetailById(productID, cb) {
     getALLProducts((product) => {
       const productData = product.find(({ id }) => id === productID);
       cb(productData);
     });
   }
+
+  // fetch all shop items
 
   static fetchAll(cb) {
     getALLProducts(cb);

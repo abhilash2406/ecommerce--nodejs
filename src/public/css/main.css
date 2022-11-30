@@ -74,6 +74,9 @@ main {
 .card__content {
   padding: 1rem;
 }
+.card__content{
+  overflow: auto;
+}
 
 .card__header h1,
 .card__content h1,
