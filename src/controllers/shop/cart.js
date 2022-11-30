@@ -50,7 +50,7 @@ exports.updateCart = (req, res, next) => {
 
 exports.removeFromCart = (req, res, next) => {
   const productID = req.body.productID;
-  // console.log('removeFromCart', productID);
+
 
   Cart._removeFromCart(productID, () => {});
   res.redirect(`/`);

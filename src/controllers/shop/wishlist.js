@@ -19,20 +19,38 @@ exports.getViewProductPage = (req, res, next) => {
   });
 };
 
-exports.editWishlist = (req, res, next) => {
-  const productID = req.params.productID;
-  let { productId } = req.body;
-  const wishlist = new Wishlist(productID);
+exports.getAllProducts = (req, res, next) => {
+  Product.fetchAll((products) => {
+    Wishlist.fetchAll((wishlsitProducts) => {
+      let formattedProducts = products.filter(({ id }) =>
+        wishlsitProducts.map(({ id }) => id).includes(id)
+      );
+      formattedProducts = formattedProducts.map((p) => ({
+        ...p,
+        qty: wishlsitProducts.find(({ id }) => id === p.id).qty,
+      }));
 
-  //console.log(req.body);
+      res.render('shop/wishlist', {
+        pageTitle: 'wishlist',
+        products: formattedProducts,
+        activeLink: '/wishlist',
+      });
+    });
+  });
+};
 
-  if (productId) {
-    wishlist.update(() => {
-      res.redirect(`/products/${productID}`);
+exports.editwishList = (req, res, next) => {
+  const productID = req.body.productID;
+  Product.getProductDetailById(productID, (productDetails) => {
+    Wishlist.addToWishList(productDetails, () => {
+      res.redirect(`/`);
     });
-  } else {
-    wishlist.save(() => {
-      res.redirect(`/products/${productID}`);
-    });
-  }
+  });
+};
+
+
+exports.removeFromWishList = (req, res, next) => {
+  const productID = req.body.productID;
+  Wishlist._removeFromWishList(productID, () => {});
+  res.redirect(`/wishlist`);
 };

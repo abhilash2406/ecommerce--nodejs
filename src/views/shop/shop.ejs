@@ -43,6 +43,10 @@
             <form method="GET" action="/products/<%= product.id %>">
               <button class="btn"> View </button>
             </form>
+             <form method="POST" action="<%= product.isInWishList ? '/remove-from-wishlist' : '/add-to-wishlist' %>">
+              <input type="hidden" name="productID" value="<%= product.id %>">
+              <button class="btn"> <%= product.isInWishList ? 'Remove from Wish List' : 'Add to WishList ' %></button>
+             </form>
           </div>
         </article>
       </div>

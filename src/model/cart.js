@@ -88,14 +88,6 @@ module.exports = class Cart {
     });
   }
 
-  static removeFromCart(ID, price) {
-    getAllCartPoducts((products) => {
-      products = products.filter((id) => id !== ID);
-      fs.writeFile(cartFilePath, JSON.stringify(products), (err) => {
-        //console.log('UPDATE ERROR', err);
-      });
-    });
-  }
 
   static fetchAll(cb) {
     getAllCartPoducts(cb);

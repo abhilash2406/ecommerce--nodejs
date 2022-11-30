@@ -4,9 +4,10 @@ const path = require('path');
 
 const appRootDir = require('../utils/path');
 
+const cartFilePath = path.join(appRootDir, 'data', 'cart.json');
 const wishlistFilePath = path.join(appRootDir, 'data', 'wishlist.json');
 
-const getAllWishlist = (cb) => {
+const getAllwishList = (cb) => {
   fs.readFile(wishlistFilePath, (err, fileContent) => {
     if (err) {
       return cb([]);
@@ -15,37 +16,63 @@ const getAllWishlist = (cb) => {
   });
 };
 
-module.exports = class Whishlist {
-  constructor(id) {
+module.exports = class Cart {
+  constructor(id, price) {
     this.id = id;
+    this.price = price;
   }
 
-  save(cb) {
-    getAllWishlist((products) => {
-      products.push(this.id);
+
+  static _removeFromWishList(productID, cb) {
+    getAllwishList((products) => {
+      console.log('products', products);
+      products = products.filter(({ id }) => id !== productID);
+      console.log('products', products);
       fs.writeFile(wishlistFilePath, JSON.stringify(products), (err) => {
         if (!err) {
-          return cb();
+          cb();
         }
-        console.log('ERROR', err);
+      });
+    });
+  }
+  static addToWishList(prductDetails, cb) {
+    getAllwishList((products) => {
+      // if product exist
+      const isExist =
+        products.filter(({ id }) => id === prductDetails.id).length > 0;
+      if (isExist) {
+        products = products.map((product) => {
+          return {
+            ...product,
+            
+          };
+        });
+      } else {
+        products.push({
+          id: prductDetails.id,
+         
+        });
+      }
+
+      fs.writeFile(wishlistFilePath, JSON.stringify(products), (err) => {
+        //console.log('ADD ERROR', err);
+        if (!err) {
+          cb();
+        }
       });
     });
   }
 
-  update(cb) {
-    getAllWishlist((products) => {
-      products = products.filter((id) => id !== this.id);
-      console.log(products);
+  static removeFromWishList(ID, price) {
+    getAllwishList((products) => {
+      products = products.filter((id) => id !== ID);
       fs.writeFile(wishlistFilePath, JSON.stringify(products), (err) => {
-        if (!err) {
-          return cb();
-        }
-        console.log('ERROR', err);
+        //console.log('UPDATE ERROR', err);
       });
     });
   }
 
   static fetchAll(cb) {
-    getAllWishlist(cb);
+    getAllwishList(cb);
   }
 };
