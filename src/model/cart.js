@@ -51,9 +51,7 @@ module.exports = class Cart {
 
   static _removeFromCart(productID, cb) {
     getAllCartPoducts((products) => {
-      console.log('products', products);
       products = products.filter(({ id }) => id !== productID);
-      console.log('products', products);
       fs.writeFile(cartFilePath, JSON.stringify(products), (err) => {
         if (!err) {
           cb();

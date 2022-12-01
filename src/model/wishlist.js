@@ -7,6 +7,8 @@ const appRootDir = require('../utils/path');
 const cartFilePath = path.join(appRootDir, 'data', 'cart.json');
 const wishlistFilePath = path.join(appRootDir, 'data', 'wishlist.json');
 
+// fetch entire items in wish list
+
 const getAllwishList = (cb) => {
   fs.readFile(wishlistFilePath, (err, fileContent) => {
     if (err) {
@@ -20,15 +22,12 @@ module.exports = class Cart {
   constructor(id, price) {
     this.id = id;
     this.price = price;
-
   }
 
-
+  // remove product from wish list
   static _removeFromWishList(productID, cb) {
     getAllwishList((products) => {
-      console.log('products', products);
       products = products.filter(({ id }) => id !== productID);
-      console.log('products', products);
       fs.writeFile(wishlistFilePath, JSON.stringify(products), (err) => {
         if (!err) {
           cb();
@@ -36,6 +35,9 @@ module.exports = class Cart {
       });
     });
   }
+
+  //add product to wish list
+
   static addToWishList(prductDetails, cb) {
     getAllwishList((products) => {
       // if product exist
@@ -45,13 +47,12 @@ module.exports = class Cart {
         products = products.map((product) => {
           return {
             ...product,
-            
           };
         });
       } else {
         products.push({
           id: prductDetails.id,
-          qty : 1,
+          qty: 1,
         });
       }
 
@@ -63,6 +64,8 @@ module.exports = class Cart {
       });
     });
   }
+
+  // remove product from wishlist
 
   static removeFromWishList(ID, price) {
     getAllwishList((products) => {

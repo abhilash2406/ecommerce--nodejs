@@ -3,6 +3,8 @@ const Cart = require('../../model/cart');
 
 const { v1: uuidv1 } = require('uuid');
 
+// fetching edit form
+
 exports.getEditProductPage = (req, res, next) => {
   Cart.fetchAll((cartProducts) => {
   let isEditable = false;
@@ -18,6 +20,8 @@ exports.getEditProductPage = (req, res, next) => {
     });
   }
 
+// filling the edit form with data that to be changed
+
   Product.getProductDetailById(req.params.productID, (productData) => {
     
     return res.render('admin/edit-product', {
@@ -32,6 +36,8 @@ exports.getEditProductPage = (req, res, next) => {
 });
   
 };
+
+//add product to shop by admin
 
 exports.editProduct = (req, res, next) => {
   const { productId, title, price, image, description } = req.body;
@@ -53,6 +59,8 @@ exports.editProduct = (req, res, next) => {
     });
   }
 };
+
+//fetch all products
 
 exports.getAllProducts = (req, res, next) => {
   Cart.fetchAll((cartProducts) => {
