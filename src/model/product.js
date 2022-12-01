@@ -1,5 +1,3 @@
-
-
 const fs = require('fs');
 
 const path = require('path');
@@ -31,7 +29,7 @@ module.exports = class Product {
   }
 
   // add new item to product list/shop
- 
+
   save(cb) {
     getALLProducts((products) => {
       products.push(this);
@@ -69,6 +67,19 @@ module.exports = class Product {
     getALLProducts((product) => {
       const productData = product.find(({ id }) => id === productID);
       cb(productData);
+    });
+  }
+
+  // delete product
+
+  static removeProduct(ID, cb) {
+    getALLProducts((products) => {
+      products = products.filter(({ id }) => id != ID);
+      fs.writeFile(pdtFilePath, JSON.stringify(products), (err) => {
+        if (!err) {
+          cb();
+        }
+      });
     });
   }
 

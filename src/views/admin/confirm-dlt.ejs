@@ -1,0 +1,27 @@
+<%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/product.css" />
+  </head>
+
+  <body>
+  <main>
+  <h1>Confirm delete ?</h1>
+  <div class="card__actions">
+            <form method="POST" action="/admin/delete/<%= productdetails.id %>">
+            
+            <button class="btn" type="submit"> confirm </button>
+          </form>
+         
+            
+          </div>
+  <div>
+  Are you sure want to delete product from your website ?
+<img src="<%= productdetails.image %>" />
+  
+  </div>
+  </main>
+
+   <%- include('../partials/end.ejs') %>
+
+

@@ -42,6 +42,6 @@ exports.editwishList = (req, res, next) => {
 
 exports.removeFromWishList = (req, res, next) => {
   const productID = req.body.productID;
-  Wishlist._removeFromWishList(productID, () => {});
+  Wishlist.removeFromWishList(productID, () => {});
   res.redirect(`/wishlist`);
 };

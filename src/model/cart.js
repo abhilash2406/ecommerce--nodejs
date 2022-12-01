@@ -49,7 +49,7 @@ module.exports = class Cart {
   }
   // remove from cart operation
 
-  static _removeFromCart(productID, cb) {
+  static removeFromCart(productID, cb) {
     getAllCartPoducts((products) => {
       products = products.filter(({ id }) => id !== productID);
       fs.writeFile(cartFilePath, JSON.stringify(products), (err) => {

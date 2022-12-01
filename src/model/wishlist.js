@@ -25,7 +25,7 @@ module.exports = class Cart {
   }
 
   // remove product from wish list
-  static _removeFromWishList(productID, cb) {
+  static removeFromWishList(productID, cb) {
     getAllwishList((products) => {
       products = products.filter(({ id }) => id !== productID);
       fs.writeFile(wishlistFilePath, JSON.stringify(products), (err) => {
@@ -67,14 +67,7 @@ module.exports = class Cart {
 
   // remove product from wishlist
 
-  static removeFromWishList(ID, price) {
-    getAllwishList((products) => {
-      products = products.filter((id) => id !== ID);
-      fs.writeFile(wishlistFilePath, JSON.stringify(products), (err) => {
-        //console.log('UPDATE ERROR', err);
-      });
-    });
-  }
+  
 
   static fetchAll(cb) {
     getAllwishList(cb);

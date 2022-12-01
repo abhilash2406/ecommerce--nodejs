@@ -60,7 +60,7 @@ exports.removeFromCart = (req, res, next) => {
   const productID = req.body.productID;
 
 
-  Cart._removeFromCart(productID, () => {});
+  Cart.removeFromCart(productID, () => {});
   res.redirect(`/products/${productID}`);
 };
 
