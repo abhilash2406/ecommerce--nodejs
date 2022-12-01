@@ -58,7 +58,7 @@ exports.editProduct = (req, res, next) => {
   }
 };
 
-// delete product
+//  confrim delete product
 exports.deleteConfirmProduct = (req, res, next) => {
   const productID = req.params.productID;
   Product.getProductDetailById(productID, (productdata) => {
@@ -68,6 +68,8 @@ exports.deleteConfirmProduct = (req, res, next) => {
     });
   });
 };
+
+// delete product
 
 exports.deleteProduct = (req, res, next) => {
   const productID = req.params.productID;

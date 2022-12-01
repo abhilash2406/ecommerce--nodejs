@@ -8,7 +8,7 @@ const pdtFilePath = path.join(appRootDir, 'data', 'db.json');
 
 const wishlistFilePath = path.join(appRootDir, 'data', 'wishlist.json');
 
-//reading product db
+//reading product database
 
 const getALLProducts = (cb) => {
   fs.readFile(pdtFilePath, (err, fileContent) => {
